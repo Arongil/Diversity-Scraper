@@ -22,6 +22,8 @@ def graph(journal):
     with open(journal + '/names.txt', encoding='utf-8-sig') as f:
         names = json.load(f)
 
+    all_institutions = get_top_n_institutions(names, 99999)
+    print('Out of ' + str(len(all_institutions)))
     n = 7
     top_institutions = get_top_n_institutions(names, n)
     plt.style.use('ggplot')

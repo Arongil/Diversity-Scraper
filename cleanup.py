@@ -114,7 +114,7 @@ for name, publications in papers.items():
     for title, others in publications.items():
         # Skip empty papers OR the "we-thank-the-editors" type papers.
         t = title.lower()
-        if others is None or (('thank' in t or 'acknowledge' in t) and ('review' in t or 'referee' in t)):
+        if others is None or 'editor' in t or (('thank' in t or 'acknowledg' in t) and ('review' in t or 'referee' in t)) or (is_int(others[0]) and int(others[0]) < 1980):
             continue
         for other in others[1:]: # coauthors start at index 1, after the year
             if other not in coauthors[name]:

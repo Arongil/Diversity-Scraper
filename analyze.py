@@ -14,10 +14,12 @@ def analyze(names, coauthors):
         'degree_average': 0,
         'degree_average_men': 0,
         'degree_average_women': 0,
-        'degrees_editors_in_chief': []
-        'isolated_nodes': 0
+        'degrees_editors_in_chief': [],
+        'isolated_nodes': 0,
+        'institutions': 0
     }
     stats['editors_total'] = len(coauthors.items())
+    institutions = []
     for author in names:
         name = author['name']
         coauths = coauthors[name]
@@ -37,10 +39,13 @@ def analyze(names, coauthors):
             stats['degree_max'] = cur_degree
         if cur_degree == 0:
             stats['isolated_nodes'] += 1
+        if author['institution'] not in institutions:
+            institutions.append(author['institution'])
     stats['degree_average'] = round(stats['degree_total'] / stats['editors_total'], 1)
     stats['degree_average_men'] = round(stats['degree_total_men'] / stats['editors_men'], 1)
     stats['degree_average_women'] = round(stats['degree_total_women'] / stats['editors_women'], 1)
     stats['normalized_degree_average'] = round(stats['degree_total'] / (stats['editors_total']*(stats['editors_total']-1)), 3)
+    stats['institutions'] = len(institutions)
     return stats
 
 statistics = {}
